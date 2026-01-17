@@ -89,6 +89,24 @@ const thread = [
 const results = await postThread(thread);
 ```
 
+### Fetching and Summarizing a Tweet
+
+1. Use the CLI tool `fetch_tweet.js` to fetch any tweet by ID or URL
+2. Only requires Bearer token (read-only access)
+3. Displays tweet content, author info, and engagement metrics
+
+```bash
+node scripts/fetch_tweet.js "https://x.com/username/status/123456789"
+# Or use just the tweet ID
+node scripts/fetch_tweet.js "123456789"
+```
+
+The tool will display:
+- Author name and username
+- Tweet content
+- Engagement metrics (likes, retweets, replies, impressions)
+- Post date and URL
+
 ### Searching Tweets
 
 1. Bearer token is sufficient for search (read-only)
@@ -129,7 +147,23 @@ await retweet('tweet_id_to_retweet');
 
 ## Usage Examples
 
-### Example 1: Post a Simple Tweet
+### Example 1: Fetch and Summarize a Tweet
+
+**Input**: "Fetch and summarize https://x.com/user/status/123456789"
+
+**Output**:
+```bash
+node scripts/fetch_tweet.js "https://x.com/user/status/123456789"
+```
+
+The script will display a formatted summary including:
+- Author information (name, username)
+- Tweet content
+- Engagement metrics (likes, retweets, replies, impressions)
+- Posted date and URL
+- Brief text summary
+
+### Example 2: Post a Simple Tweet
 
 **Input**: "Post a tweet saying 'Just shipped a new feature!'"
 
@@ -151,7 +185,7 @@ async function main() {
 main();
 ```
 
-### Example 2: Search Recent Tweets
+### Example 3: Search Recent Tweets
 
 **Input**: "Find recent tweets about #JavaScript that are not retweets"
 
@@ -180,7 +214,7 @@ async function main() {
 main();
 ```
 
-### Example 3: Monitor Mentions
+### Example 4: Monitor Mentions
 
 **Input**: "Check for new mentions of my account"
 
@@ -214,7 +248,7 @@ async function checkMentions() {
 checkMentions();
 ```
 
-### Example 4: Follow a User
+### Example 5: Follow a User
 
 **Input**: "Follow the user with username 'nodejs'"
 
