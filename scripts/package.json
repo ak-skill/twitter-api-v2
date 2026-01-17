@@ -1,0 +1,30 @@
+{
+  "name": "twitter-api-v2-helpers",
+  "version": "1.0.0",
+  "description": "Helper scripts for Twitter API v2 integration skill",
+  "main": "twitter_client.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node example_usage.js verify",
+    "example": "node example_usage.js",
+    "post": "node example_usage.js post",
+    "search": "node example_usage.js search",
+    "mentions": "node example_usage.js mentions"
+  },
+  "keywords": [
+    "twitter",
+    "twitter-api",
+    "twitter-api-v2",
+    "automation",
+    "social-media"
+  ],
+  "author": "Claude Agent",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "twitter-api-v2": "^1.17.0",
+    "dotenv": "^16.4.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

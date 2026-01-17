@@ -1,0 +1,58 @@
+name: Validate
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate SKILL.md
+        run: |
+          python -m pip install pyyaml
+          python - << 'EOF'
+          import os
+          import re
+          import yaml
+          import sys
+
+          if not os.path.exists('SKILL.md'):
+              print("❌ SKILL.md not found")
+              sys.exit(1)
+
+          with open('SKILL.md', 'r') as f:
+              content = f.read()
+
+          if not content.startswith('---'):
+              print("❌ Missing YAML frontmatter")
+              sys.exit(1)
+
+          parts = content.split('---', 2)
+          if len(parts) < 3:
+              print("❌ Invalid frontmatter format")
+              sys.exit(1)
+
+          try:
+              frontmatter = yaml.safe_load(parts[1])
+          except yaml.YAMLError as e:
+              print(f"❌ Invalid YAML: {e}")
+              sys.exit(1)
+
+          if 'name' not in frontmatter or 'description' not in frontmatter:
+              print("❌ Missing required fields (name, description)")
+              sys.exit(1)
+
+          print("✅ SKILL.md is valid")
+          EOF

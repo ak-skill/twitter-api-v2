@@ -1,0 +1,6 @@
+# Assets Directory
+
+Place static resources here:
+- templates/ - Document or code templates
+- images/ - Diagrams, examples
+- data/ - Lookup tables, schemas, sample data

@@ -1,0 +1,25 @@
+{
+  "name": "{name}",
+  "version": "1.0.0",
+  "description": "{description}",
+  "author": {
+    "name": "{author}"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/{github_org}/{name}"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "claude-code",
+    "agent-skills",
+    "skills"
+  ],
+  "main": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "references/",
+    "scripts/",
+    "assets/"
+  ]
+}

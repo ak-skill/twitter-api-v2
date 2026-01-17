@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create release archive
+        run: |
+          SKILL_NAME=$(grep '^name:' SKILL.md | head -1 | sed 's/name: *//')
+          VERSION="${{ github.event.release.tag_name }}"
+          VERSION="${VERSION#v}"
+
+          tar -czf "${SKILL_NAME}-${VERSION}.tar.gz" \
+            SKILL.md \
+            $([ -d scripts ] && echo "scripts/") \
+            $([ -d references ] && echo "references/") \
+            $([ -d assets ] && echo "assets/") \
+            $([ -d .claude-plugin ] && echo ".claude-plugin/") \
+            $([ -f README.md ] && echo "README.md") \
+            $([ -f LICENSE ] && echo "LICENSE")
+
+          echo "Created archive: ${SKILL_NAME}-${VERSION}.tar.gz"
+
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./*.tar.gz
+          asset_name: skill.tar.gz
+          asset_content_type: application/gzip
